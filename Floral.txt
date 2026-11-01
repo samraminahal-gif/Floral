@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bloom & Blossom | Flower Shop</title>
+
+    <style>
+        /* =========================
+           GLOBAL STYLES
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #fffaf8;
+            color: #3d3035;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        header {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background: rgba(255, 250, 248, 0.94);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 15px rgba(80, 40, 50, 0.08);
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: auto;
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+        }
+
+        .logo {
+            font-family: Georgia, serif;
+            font-size: 28px;
+            font-weight: bold;
+            color: #b94f70;
+        }
+
+        .logo span {
+            color: #e5a05d;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #c65376;
+        }
+
+        .cart {
+            position: relative;
+            cursor: pointer;
+            font-size: 23px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #c65376;
+            color: white;
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* =========================
+           HERO SECTION
+        ========================= */
+
+        .hero {
+            min-height: 100vh;
+            padding: 110px 8% 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(255,250,248,0.97) 0%,
+                    rgba(255,250,248,0.82) 45%,
+                    rgba(255,250,248,0.15) 100%
+                ),
+                url("https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1600&q=85");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-content .small-title {
+            color: #c65376;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .hero-content h1 {
+            font-family: Georgia, serif;
+            font-size: clamp(45px, 6vw, 78px);
+            line-height: 1.05;
+            margin-bottom: 25px;
+            color: #422f37;
+        }
+
+        .hero-content h1 span {
+            color: #c65376;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            max-width: 530px;
+            margin-bottom: 30px;
+            color: #5f4e54;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .primary-btn {
+            background: #c65376;
+            color: white;
+            box-shadow: 0 8px 20px rgba(198, 83, 118, 0.25);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            background: #aa3e60;
+        }
+
+        .secondary-btn {
+            background: white;
+            color: #c65376;
+            border: 1px solid #e6b4c2;
+        }
+
+        .secondary-btn:hover {
+            transform: translateY(-3px);
+            background: #fff0f4;
+        }
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        section {
+            padding: 90px 7%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-heading small {
+            color: #c65376;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-heading h2 {
+            font-family: Georgia, serif;
+            font-size: 42px;
+            margin-top: 8px;
+            color: #432f37;
+        }
+
+        .section-heading p {
+            max-width: 600px;
+            margin: 12px auto 0;
+            color: #77666c;
+        }
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        .search-container {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            display: flex;
+            background: white;
+            border-radius: 40px;
+            padding: 7px;
+            box-shadow: 0 5px 25px rgba(80, 40, 50, 0.08);
+        }
+
+        .search-container input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 13px 20px;
+            font-size: 16px;
+            background: transparent;
+        }
+
+        .search-container button {
+            border: none;
+            background: #c65376;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        /* =========================
+           FLOWER CARDS
+        ========================= */
+
+        .flowers-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .flower-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(80, 40, 50, 0.08);
+            transition: 0.4s;
+        }
+
+        .flower-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(80, 40, 50, 0.15);
+        }
+
+        .flower-image {
+            height: 260px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .flower-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .flower-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: white;
+            color: #c65376;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .flower-info {
+            padding: 20px;
+        }
+
+        .flower-info h3 {
+            font-family: Georgia, serif;
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .flower-info p {
+            color: #87767b;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .flower-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            color: #c65376;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .add-btn {
+            border: none;
+            background: #f7e4e9;
+            color: #b13f62;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #c65376;
+            color: white;
+            transform: rotate(10deg);
+        }
+
+        /* =========================
+           SERVICES
+        ========================= */
+
+        .services {
+            background: #fff0f3;
+        }
+
+        .services-grid {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+            text-align: center;
+            padding: 35px 25px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-7px);
+        }
+
+        .service-icon {
+            width: 65px;
+            height: 65px;
+            background: #f8dfe6;
+            color: #c65376;
+            border-radius: 50%;
+            margin: auto auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: #77666c;
+        }
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .about {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            height: 500px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(80, 40, 50, 0.15);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-content small {
+            color: #c65376;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .about-content h2 {
+            font-family: Georgia, serif;
+            font-size: 45px;
+            margin: 12px 0 20px;
+        }
+
+        .about-content p {
+            color: #6f6065;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            list-style: none;
+        }
+
+        .features li {
+            margin: 10px 0;
+            font-weight: 600;
+        }
+
+        .features li::before {
+            content: "✿";
+            color: #c65376;
+            margin-right: 10px;
+        }
+
+        /* =========================
+           CONTACT
+        ========================= */
+
+        .contact {
+            background: #fff0f3;
+        }
+
+        .contact-container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(80, 40, 50, 0.08);
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 18px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            border: 1px solid #ead8dd;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 15px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #c65376;
+        }
+
+        .contact-form textarea {
+            height: 130px;
+            resize: vertical;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #392c32;
+            color: #eee;
+            padding: 50px 7% 25px;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+        }
+
+        footer h3 {
+            font-family: Georgia, serif;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            color: #cfc2c7;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer li {
+            margin: 8px 0;
+            color: #cfc2c7;
+        }
+
+        .copyright {
+            max-width: 1100px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid #5b4c52;
+            text-align: center;
+            color: #bdb0b5;
+        }
+
+        /* =========================
+           TOAST
+        ========================= */
+
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #392c32;
+            color: white;
+            padding: 15px 22px;
+            border-radius: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 0.4s;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .flowers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero {
+                background-position: 65% center;
+            }
+        }
+
+        @media (max-width: 750px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                text-align: center;
+                justify-content: center;
+                background-position: 65% center;
+            }
+
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .flowers-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                height: 350px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 65px 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <header>
+        <nav class="navbar">
+
+            <a href="#home" class="logo">
+                Bloom<span> & Blossom</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#flowers">Flowers</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <div class="cart">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="small-title">
+                Fresh Flowers • Beautiful Moments
+            </div>
+
+            <h1>
+                Flowers that make
+                <span>every moment</span>
+                special.
+            </h1>
+
+            <p>
+                Discover beautiful fresh flowers, elegant bouquets,
+                and thoughtful floral arrangements created to make
+                your special moments unforgettable.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#flowers" class="btn primary-btn">
+                    Explore Flowers
+                </a>
+
+                <a href="#about" class="btn secondary-btn">
+                    Our Story
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FLOWERS
+    ========================== -->
+
+    <section id="flowers">
+
+        <div class="section-heading">
+
+            <small>Our Collection</small>
+
+            <h2>Beautiful Flowers</h2>
+
+            <p>
+                Choose from our carefully selected collection
+                of fresh and beautiful flowers.
+            </p>
+
+        </div>
+
+
+        <!-- Search -->
+
+        <div class="search-container">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search flowers..."
+            >
+
+            <button onclick="searchFlowers()">
+                Search
+            </button>
+
+        </div>
+
+
+        <div class="flowers-grid" id="flowerGrid">
+
+            <!-- Rose -->
+
+            <div class="flower-card" data-name="Rose">
+
+                <div class="flower-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1496062031456-07b8f162a322?auto=format&fit=crop&w=700&q=85"
+                        alt="Red Roses"
+                    >
+
+                    <span class="badge">Popular</span>
+
+                </div>
+
+                <div class="flower-info">
+
+                    <h3>Red Roses</h3>
+
+                    <p>
+                        Classic roses for love and special moments.
+                    </p>
+
+                    <div class="flower-bottom">
+
+                        <span class="price">$35</span>
+
+                        <button
+                            class="add-btn"
+                            onclick="addToCart('Red Roses')"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Tulips -->
+
+            <div class="flower-card" data-name="Tulip">
+
+                <div class="flower-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=700&q=85"
+                        alt="Pink Tulips"
+                    >
+
+                </div>
+
+                <div class="flower-info">
+
+                    <h3>Pink Tulips</h3>
+
+                    <p>
+                        Elegant tulips with a soft romantic touch.
+                    </p>
+
+                    <div class="flower-bottom">
+
+                        <span class="price">$28</span>
+
+                        <button
+                            class="add-btn"
+                            onclick="addToCart('Pink Tulips')"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Sunflowers -->
+
+            <div class="flower-card" data-name="Sunflower">
+
+                <div class="flower-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1597848212624-e19e7a2e5f7a?auto=format&fit=crop&w=700&q=85"
+                        alt="Sunflowers"
+                    >
+
+                    <span class="badge">Fresh</span>
+
+                </div>
+
+                <div class="flower-info">
+
+                    <h3>Sunflowers</h3>
+
+                    <p>
+                        Bright yellow flowers full of happiness.
+                    </p>
+
+                    <div class="flower-bottom">
+
+                        <span class="price">$30</span>
+
+                        <button
+                            class="add-btn"
+                            onclick="addToCart('Sunflowers')"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Peonies -->
+
+            <div class="flower-card" data-name="Peony">
+
+                <div class="flower-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=700&q=85"
+                        alt="Peony Flowers"
+                    >
+
+                </div>
+
+                <div class="flower-info">
+
+                    <h3>Pink Peonies</h3>
+
+                    <p>
+                        Soft and luxurious flowers for elegant occasions.
+                    </p>
+
+                    <div class="flower-bottom">
+
+                        <span class="price">$42</span>
+
+                        <button
+                            class="add-btn"
+                            onclick="addToCart('Pink Peonies')"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Lavender -->
+
+            <div class="flower-card" data-name="Lavender">
+
+                <div class="flower-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?auto=format&fit=crop&w=700&q=85"
+                        alt="Lavender"
+                    >
+
+                </div>
+
+                <div class="flower-info">
+
+                    <h3>Lavender</h3>
+
+                    <p>
+                        Calm and fragrant flowers with a natural beauty.
+                    </p>
+
+                    <div class="flower-bottom">
+
+                        <span class="price">$25</span>
+
+                        <button
+                            class="add-btn"
+                            onclick="addToCart('Lavender')"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- White Flowers -->
+
+            <div class="flower-card" data-name="White Flower">
+
+                <div class="flower-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?auto=format&fit=crop&w=700&q=85"
+                        alt="White Flowers"
+                    >
+
+                </div>
+
+                <div class="flower-info">
+
+                    <h3>White Bouquet</h3>
+
+                    <p>
+                        Pure and graceful flowers for every occasion.
+                    </p>
+
+                    <div class="flower-bottom">
+
+                        <span class="price">$38</span>
+
+                        <button
+                            class="add-btn"
+                            onclick="addToCart('White Bouquet')"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Daisy -->
+
+            <div class="flower-card" data-name="Daisy">
+
+                <div class="flower-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1553265770-7f37f6b7d4b6?auto=format&fit=crop&w=700&q=85"
+                        alt="Daisies"
+                    >
+
+                </div>
+
+                <div class="flower-info">
+
+                    <h3>White Daisies</h3>
+
+                    <p>
+                        Simple, cheerful and naturally beautiful.
+                    </p>
+
+                    <div class="flower-bottom">
+
+                        <span class="price">$22</span>
+
+                        <button
+                            class="add-btn"
+                            onclick="addToCart('White Daisies')"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Mixed Bouquet -->
+
+            <div class="flower-card" data-name="Mixed Bouquet">
+
+                <div class="flower-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1527061011665-3652c757a4d4?auto=format&fit=crop&w=700&q=85"
+                        alt="Mixed Flower Bouquet"
+                    >
+
+                    <span class="badge">Best Seller</span>
+
+                </div>
+
+                <div class="flower-info">
+
+                    <h3>Mixed Bouquet</h3>
+
+                    <p>
+                        A colorful combination of seasonal flowers.
+                    </p>
+
+                    <div class="flower-bottom">
+
+                        <span class="price">$50</span>
+
+                        <button
+                            class="add-btn"
+                            onclick="addToCart('Mixed Bouquet')"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SERVICES
+    ========================== -->
+
+    <section class="services" id="services">
+
+        <div class="section-heading">
+
+            <small>What We Offer</small>
+
+            <h2>Our Services</h2>
+
+            <p>
+                We make sending beautiful flowers simple and special.
+            </p>
+
+        </div>
+
+
+        <div class="services-grid">
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    🚚
+                </div>
+
+                <h3>Fast Delivery</h3>
+
+                <p>
+                    Fresh flowers delivered safely to your doorstep.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    💐
+                </div>
+
+                <h3>Custom Bouquets</h3>
+
+                <p>
+                    Create a personalized bouquet for someone special.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    💝
+                </div>
+
+                <h3>Special Gifts</h3>
+
+                <p>
+                    Beautiful floral gifts for birthdays and celebrations.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+    ========================== -->
+
+    <section id="about">
+
+        <div class="about">
+
+            <div class="about-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=900&q=85"
+                    alt="Beautiful flower arrangement"
+                >
+
+            </div>
+
+
+            <div class="about-content">
+
+                <small>About Bloom & Blossom</small>
+
+                <h2>
+                    Flowers made with love.
+                </h2>
+
+                <p>
+                    At Bloom & Blossom, we believe flowers have the
+                    power to turn ordinary moments into unforgettable
+                    memories.
+                </p>
+
+                <p>
+                    Every bouquet is carefully designed using fresh
+                    flowers and creative arrangements.
+                </p>
+
+                <ul class="features">
+
+                    <li>Fresh flowers every day</li>
+
+                    <li>Beautiful handmade arrangements</li>
+
+                    <li>Fast and reliable delivery</li>
+
+                    <li>Perfect flowers for every occasion</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONTACT
+    ========================== -->
+
+    <section class="contact" id="contact">
+
+        <div class="section-heading">
+
+            <small>Get In Touch</small>
+
+            <h2>Contact Us</h2>
+
+            <p>
+                Have a question? Send us a message.
+            </p>
+
+        </div>
+
+
+        <div class="contact-container">
+
+            <form
+                class="contact-form"
+                onsubmit="sendMessage(event)"
+            >
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Your Name"
+                    required
+                >
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Your Email"
+                    required
+                >
+
+                <textarea
+                    id="message"
+                    placeholder="Write your message..."
+                    required
+                ></textarea>
+
+                <button
+                    type="submit"
+                    class="btn primary-btn"
+                >
+                    Send Message
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <div>
+
+                <h3>Bloom & Blossom 🌸</h3>
+
+                <p>
+                    Bringing beauty, happiness and fresh flowers
+                    to your special moments.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>Quick Links</h3>
+
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#flowers">Flowers</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+
+            </div>
+
+
+            <div>
+
+                <h3>Contact</h3>
+
+                <ul>
+                    <li>📍 Your City</li>
+                    <li>📞 +92 300 1234567</li>
+                    <li>✉ hello@bloom.com</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 Bloom & Blossom. All Rights Reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- Toast Notification -->
+
+    <div class="toast" id="toast">
+        Added to your cart 🌸
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        // Cart counter
+        let cartCount = 0;
+
+
+        // Add product to cart
+        function addToCart(flowerName) {
+
+            cartCount++;
+
+            document.getElementById("cartCount").textContent =
+                cartCount;
+
+            showToast(
+                flowerName + " added to your cart 🌸"
+            );
+        }
+
+
+        // Toast notification
+        function showToast(message) {
+
+            const toast =
+                document.getElementById("toast");
+
+            toast.textContent = message;
+
+            toast.classList.add("show");
+
+            setTimeout(function() {
+
+                toast.classList.remove("show");
+
+            }, 2500);
+        }
+
+
+        // Search flowers
+        function searchFlowers() {
+
+            const search =
+                document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+            const cards =
+                document.querySelectorAll(".flower-card");
+
+            cards.forEach(function(card) {
+
+                const flowerName =
+                    card
+                    .getAttribute("data-name")
+                    .toLowerCase();
+
+                if (
+                    flowerName.includes(search)
+                    || search === ""
+                ) {
+
+                    card.style.display = "block";
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+        }
+
+
+        // Search while typing
+        document
+            .getElementById("searchInput")
+            .addEventListener(
+                "input",
+                searchFlowers
+            );
+
+
+        // Contact form
+        function sendMessage(event) {
+
+            event.preventDefault();
+
+            const name =
+                document.getElementById("name").value;
+
+            showToast(
+                "Thank you, " + name + "! Message sent 🌷"
+            );
+
+            document
+                .querySelector(".contact-form")
+                .reset();
+        }
+
+
+        // Cart click
+        document
+            .querySelector(".cart")
+            .addEventListener("click", function() {
+
+                if (cartCount === 0) {
+
+                    showToast(
+                        "Your cart is empty 🌸"
+                    );
+
+                } else {
+
+                    showToast(
+                        "You have " +
+                        cartCount +
+                        " item(s) in your cart 🛒"
+                    );
+                }
+
+            });
+
+    </script>
+
+</body>
+</html>
